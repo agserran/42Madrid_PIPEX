@@ -18,7 +18,18 @@ static void	firts_child(int fd, char *cmd, char **envp)
 		ft_putstr("command not found.");
 		exit(0);
 	}
-	execve(path, splited_cmd, envp);
+}
+
+static void	last_child(int fd, char *cmd, char **envp)
+{
+	int	i;
+	char	**splited_cmd;
+	char	*path;
+
+	close(fd[WRITE_END]);
+	i = 0;
+	splited_cmd = cmd_split(cmd);
+	dup2(fd, STDOUT_FILENO);
 }
 
 int	main(int argc,char **argv, char **envp)

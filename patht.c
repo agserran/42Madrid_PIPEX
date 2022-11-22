@@ -10,7 +10,7 @@ static char	*path_shorter(char **envp)
 	{
 		if (ft_strncmp(envp[i], "PATH=", 5))
 			{
-				short_path = ft_substr(envp[i], 5, ft_strlen(env[i]));
+				short_path = ft_substr(envp[i], 5, ft_strlen(envp[i]));
 				return (short_path);
 			}
 		i++;
@@ -22,21 +22,24 @@ char	*get_path(char **envp, char *cmd)
 {
 	char	**paths;
 	int	i;
-	char	**path_cmd;
-	char	**path;
-	char	**splited_cmd;
+	char	*path_cmd;
+	char	*path;
 
 	i = 0;
-	paths = ft_split(path_shorter(envp) , ":");
+	paths = ft_split(path_shorter(envp) , ':');
 	
 	while(paths[i])
 	{
 		path = ft_strjoin(paths[i], "/");
-		path_cmd = ft_strjoin(path, cmd);
-		free(path);
+		path_cmd = ft_strjoin(paths[i], cmd);
 		if(access(path_cmd, X_OK) == 0)
-			return(path_cmd[i]);
-		i++;
+			return(path_cmd);
+		else
+		{
+			free(path);
+			free(path_cmd);
+			i++;
+		}
 	}
 	free_it(paths);
 	return (NULL);
@@ -60,6 +63,6 @@ char	**cmd_split(char *argv)
 {
 	char	**cmd;
 
-	cmd = ft_split(cmd, " ");
+	cmd = ft_split(argv, ' ');
 	return (cmd);
 }

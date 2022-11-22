@@ -15,7 +15,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (0);
-	if ((size_t)ft_strlen(s) < start)
+	if ((size_t)ft_strlen((char *)s) < start)
 	{
 		str = malloc(1);
 		if (!str)
@@ -23,7 +23,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		str[0] = '\0';
 		return (str);
 	}
-	str = (char *)malloc(ft_min(ft_strlen(s) - start, len) + 1);
+	str = (char *)malloc(ft_min(ft_strlen((char *)s) - start, len) + 1);
 	if (!str)
 		return (0);
 	while (i < len && s[start + i])
@@ -62,4 +62,32 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 void	ft_putstr(char *str)
 {
 	write(1, str, ft_strlen(str));
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*final;
+	size_t	l_s1;
+	size_t	l_total;
+	size_t	i;
+
+	if (s1 == NULL)
+		return (NULL);
+	l_s1 = ft_strlen((char *)s1);
+	l_total = l_s1 + ft_strlen((char *)s2);
+	final = ft_calloc(sizeof(char), l_total + 1);
+	if (final == NULL)
+		return (NULL);
+	i = 0;
+	while (i < l_s1)
+	{
+		final[i] = s1[i];
+		i++;
+	}
+	while (i < l_total)
+	{
+		final[i] = s2[i - l_s1];
+		i++;
+	}
+	return (final);
 }
