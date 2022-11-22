@@ -1,24 +1,39 @@
 #include "pipex.h"
 
-
-int	main(int argc,char **a<F12>rgv, char **argv2)
+static void	firts_child(int fd, char *cmd, char **envp)
 {
-	int	fd[2];
+	int	i;
+	char	**splited_cmd;
+	char	*path;
+
+	close(fd[READ_END]);
+	i = 0;
+	splited_cmd = cmd_split(cmd);
+	dup2(fd[WRITE_END], STDOUT_FILENO);
+	path = get_path(envp, cmd);
+	close(fd[WRITE_END]);
+	if(execve(path, splited_cmd, envp) == -1)
+	{
+		free_it(splited_cmd);
+		ft_putstr("command not found.");
+		exit(0);
+	}
+	execve(path, splited_cmd, envp);
+}
+
+int	main(int argc,char **argv, char **envp)
+{
+	int	fd;
 	int	fd2;
 	int	pid;
 
-	pipe(fd1);/*comunica dos procesos*/
+	pipe(fd);/*comunica dos procesos*/
 
 	pid = fork();
 
 	if (pid == 0)/*child1 1st command*/
 	{
-		close(fd1[READ_END]);
-
-		dup2(fd1[WRITE_END], STDOUT_FILENO);
-		close(fd1[WRITE_END]);
-
-		execve()/*TO DO GET_PATHNAME*/;
+		firts_child(fd, argv[2], envp);
 	}
 	else
 	{
@@ -27,7 +42,7 @@ int	main(int argc,char **a<F12>rgv, char **argv2)
 		if (pid == 0)/*child2 2nd command*/
 		{
 			fd2 = open(FILE_NAME, /*FLAGS TO CREATE A FILE FOR OUTPUT*/);
-			dup2(fd1[READ_END], STDIN_FILE);
+			dup2(fd1[READ_END], STDIN_FILENO);
 			close(fd1[READ_END]);
 
 			dup2(fd2, STDOUT_FILENO);

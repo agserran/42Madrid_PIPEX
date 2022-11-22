@@ -1,16 +1,16 @@
 #include "pipex.h"
 
-char	*path_shorter(char **env)
+static char	*path_shorter(char **envp)
 {
 	int		i;
 	char	*short_path;
 
 	i = 0;
-	while (env[i])
+	while (envp[i])
 	{
-		if (ft_strncmp(env[i], "PATH=", 5))
+		if (ft_strncmp(envp[i], "PATH=", 5))
 			{
-				short_path = ft_substr(env[i], 5, ft_strlen(env[i]));
+				short_path = ft_substr(envp[i], 5, ft_strlen(env[i]));
 				return (short_path);
 			}
 		i++;
@@ -18,16 +18,16 @@ char	*path_shorter(char **env)
 	return (NULL);
 }
 
-char	*get_path(char **env, char **cmd)
+char	*get_path(char **envp, char *cmd)
 {
 	char	**paths;
-	int		i;
+	int	i;
 	char	**path_cmd;
 	char	**path;
 	char	**splited_cmd;
 
 	i = 0;
-	paths = ft_split(path_shorter(env) , ":");
+	paths = ft_split(path_shorter(envp) , ":");
 	
 	while(paths[i])
 	{
@@ -38,14 +38,28 @@ char	*get_path(char **env, char **cmd)
 			return(path_cmd[i]);
 		i++;
 	}
-	freeit(paths);
+	free_it(paths);
 	return (NULL);
 }
 
-char	**free_it(char *arg)
+void	free_it(char **argv)
 {
-	char	**arg_split;
+	int	i;
 
-	arg_split = ft_split(cmd, " ");
-	return (cmd2);
+	i = 0;
+
+	while(*argv[i])
+	{
+		free(argv[i]);
+		i++;
+	}
+	free(argv[i]);
+}
+
+char	**cmd_split(char *argv)
+{
+	char	**cmd;
+
+	cmd = ft_split(cmd, " ");
+	return (cmd);
 }

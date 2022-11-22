@@ -58,3 +58,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return ((unsigned char)s1[c] - (unsigned char)s2[c]);
 	return (0);
 }
+
+void	ft_putstr(char *str)
+{
+	write(1, str, ft_strlen(str));
+}
