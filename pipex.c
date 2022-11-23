@@ -47,6 +47,7 @@ int	main(int argc,char **argv, char **envp)
 	int	fd[2];
 	int	pid;
 
+	argv_checker(argc);
 	pipe(fd);
 
 	pid = fork();

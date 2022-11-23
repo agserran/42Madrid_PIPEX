@@ -27,7 +27,8 @@ char	*get_path(char **envp, char *cmd)
 
 	i = 0;
 	paths = ft_split(path_shorter(envp) , ':');
-	
+	if (complete_path_checker(cmd) == 1)
+		return(cmd);
 	while(paths[i])
 	{
 		path = ft_strjoin(paths[i], "/");

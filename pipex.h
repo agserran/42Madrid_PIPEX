@@ -23,5 +23,7 @@ char	*get_path(char **envp, char *cmd);
 void	free_it(char **argv);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**cmd_split(char *argv);
+void	argv_checker(int argc);
+int	complete_path_checker(char *cmd);
 
 #endif
