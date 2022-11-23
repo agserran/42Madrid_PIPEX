@@ -15,10 +15,11 @@ void	*ft_calloc(size_t count, size_t size);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlen(char *s);
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr(char *str);
 char	*get_path(char **envp, char *cmd);
 void	free_it(char **argv);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	**cmd_split(char *argv);
 
 #endif

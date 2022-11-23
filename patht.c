@@ -8,7 +8,7 @@ static char	*path_shorter(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], "PATH=", 5))
+		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 			{
 				short_path = ft_substr(envp[i], 5, ft_strlen(envp[i]));
 				return (short_path);
@@ -31,9 +31,12 @@ char	*get_path(char **envp, char *cmd)
 	while(paths[i])
 	{
 		path = ft_strjoin(paths[i], "/");
-		path_cmd = ft_strjoin(paths[i], cmd);
+		path_cmd = ft_strjoin(path, cmd);
 		if(access(path_cmd, X_OK) == 0)
+		{
+			free(path);
 			return(path_cmd);
+		}
 		else
 		{
 			free(path);
@@ -51,7 +54,7 @@ void	free_it(char **argv)
 
 	i = 0;
 
-	while(*argv[i])
+	while(argv[i])
 	{
 		free(argv[i]);
 		i++;
