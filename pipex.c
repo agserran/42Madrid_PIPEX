@@ -7,7 +7,7 @@ static void	firts_child(int fd[2], char *cmd, char **envp)
 
 	close(fd[READ_END]);
 	splited_cmd = cmd_split(cmd);
-	path = get_path(envp, cmd);
+	path = get_path(envp, splited_cmd[0]);
 	printf("%s\n", path);
 	dup2(fd[WRITE_END], STDOUT_FILENO);
 	close(fd[WRITE_END]);
@@ -19,18 +19,20 @@ static void	firts_child(int fd[2], char *cmd, char **envp)
 	}
 }
 
-static void	last_child(int fd[2], char *cmd, char **envp)
+static void	last_child(int fd[2], char *cmd, char **envp, char *exitfile)
 {
-	int	i;
 	char	**splited_cmd;
 	char	*path;
+	int	out;
 
 	close(fd[WRITE_END]);
-	i = 0;
+	out = open(exitfile, O_WRONLY | O_CREAT | O_TRUNC | S_IRWXG);
 	splited_cmd = cmd_split(cmd);
-	path = get_path(envp, cmd);
+	path = get_path(envp, splited_cmd[0]);
 	printf("%s\n", path);
 	dup2(fd[READ_END], STDIN_FILENO);
+	close(fd[READ_END]);
+	dup2(out, STDOUT_FILENO);
 	if(execve(path, splited_cmd, envp) == -1)
 	{
 		free_it(splited_cmd);
@@ -45,7 +47,7 @@ int	main(int argc,char **argv, char **envp)
 	int	fd[2];
 	int	pid;
 
-	pipe(fd);/*comunica dos procesos*/
+	pipe(fd);
 
 	pid = fork();
 	if(pid < 0)
@@ -63,10 +65,14 @@ int	main(int argc,char **argv, char **envp)
 		pid = fork();
 		if (pid == 0)
 		{
-			last_child(fd, argv[2], envp);
+			last_child(fd, argv[2], envp, argv[3]);
 		}
 		else
+		{
 			close(fd[READ_END]);
+			close(fd[WRITE_END]);
+		}
 	}
-	open("outfile", O_CREAT | O_TRUNC | O_WRONLY);
+	waitpid(pid, NULL, 0);
+	return (0);
 }

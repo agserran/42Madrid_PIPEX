@@ -6,9 +6,11 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdint.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
-# define	READ_END	1
-# define	WRITE_END	0
+# define	READ_END	0
+# define	WRITE_END	1
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
