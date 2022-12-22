@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agserran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/22 15:46:43 by agserran          #+#    #+#             */
+/*   Updated: 2022/12/22 15:47:55 by agserran         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 static int	ft_min(int a, int b)
@@ -59,11 +71,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	if ((s1[c] != s2[c]) && (c < n))
 		return ((unsigned char)s1[c] - (unsigned char)s2[c]);
 	return (0);
-}
-
-void	ft_putstr(char *str)
-{
-	write(1, str, ft_strlen(str));
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)

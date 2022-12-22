@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: agserran <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/22 15:44:21 by agserran          #+#    #+#             */
+/*   Updated: 2022/12/22 18:05:01 by agserran         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
 # define PIPEX_H
 
@@ -9,8 +21,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-# define	READ_END	0
-# define	WRITE_END	1
+# define READ_END 0
+# define WRITE_END 1
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
@@ -24,6 +36,8 @@ void	free_it(char **argv);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**cmd_split(char *argv);
 void	argv_checker(int argc);
-int	complete_path_checker(char *cmd);
+int		complete_path_checker(char *cmd);
+void	pid_checker(int pid);
+void	free_two(char *s1, char *s2);
 
 #endif
