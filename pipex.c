@@ -6,7 +6,7 @@
 /*   By: agserran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:35:52 by agserran          #+#    #+#             */
-/*   Updated: 2022/12/22 18:03:33 by agserran         ###   ########.fr       */
+/*   Updated: 2022/12/28 17:03:30 by agserran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ static void	firts_child(int fd[2], char *cmd, char **envp, char *infile)
 	char	*path;
 	int		in;
 
-	in = open(infile, O_WRONLY);
+	in = open(infile, O_RDONLY);
+	if (in == -1)
+	{
+		perror("invalid infile");
+		exit(0);
+	}
 	close(fd[READ_END]);
 	dup2(in, STDIN_FILENO);
 	splited_cmd = cmd_split(cmd);
@@ -66,6 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	int	fd[2];
 	int	pid;
 
+	bullate;
 	argv_checker(argc);
 	pipe(fd);
 	pid = fork();

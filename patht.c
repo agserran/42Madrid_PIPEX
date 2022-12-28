@@ -6,7 +6,7 @@
 /*   By: agserran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:30:17 by agserran          #+#    #+#             */
-/*   Updated: 2022/12/22 15:44:35 by agserran         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:15:07 by agserran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ char	*get_path(char **envp, char *cmd)
 			free(path);
 			return (path_cmd);
 		}
-		else
-		{
-			free_two(path, path_cmd);
-			i++;
-		}
+		free_two(path, path_cmd);
+		i++;
 	}
 	free_it(paths);
 	return (NULL);

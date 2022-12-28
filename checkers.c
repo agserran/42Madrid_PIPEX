@@ -6,7 +6,7 @@
 /*   By: agserran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:28:12 by agserran          #+#    #+#             */
-/*   Updated: 2022/12/22 17:59:23 by agserran         ###   ########.fr       */
+/*   Updated: 2022/12/28 16:13:13 by agserran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@ void	argv_checker(int argc)
 {
 	if (argc > 5)
 	{
-		perror("limit of orders exceeded, two commands and the output file");
+		perror("limit of orders exceeded.");
+		exit(0);
+	}
+	if (argc < 5)
+	{
+		perror("invalid operation.");
 		exit(0);
 	}
 }
