@@ -14,7 +14,9 @@ CC = gcc
 
 LIB = pipex.h
 
-all: $(NAME)
+EXE = pipex
+
+all: $(FILES) $(EXE)
 
 $(NAME): $(OBJS) $(LIB)
 	ar rc $(NAME) $(OBJS)
@@ -22,6 +24,8 @@ $(NAME): $(OBJS) $(LIB)
 $(OBJS): $(FILES) $(LIB)
 	gcc $(FLAGS) -c $(FILES)
 
+$(EXE): $(OBJS)
+	$(CC) $(OBJS) -o $@
 clean:
 	rm -f $(OBJS)
 
@@ -31,3 +35,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
