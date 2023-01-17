@@ -6,7 +6,7 @@
 /*   By: agserran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:35:52 by agserran          #+#    #+#             */
-/*   Updated: 2023/01/17 15:53:19 by agserran         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:00:15 by agserran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ static void	firts_child(int fd[2], char *cmd, char **envp, char *infile)
 	}
 }
 
+static void	fd_checker(int fd)
+{
+	if (fd == -1)
+	{
+		perror("INVALID INFILE.");
+		exit(0);
+	}
+}
+
 static void	last_child(int fd[2], char *cmd, char **envp, char *exitfile)
 {
 	char	**splited_cmd;
@@ -47,6 +56,7 @@ static void	last_child(int fd[2], char *cmd, char **envp, char *exitfile)
 
 	close(fd[WRITE_END]);
 	out = open(exitfile, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	fd_checker(out);
 	splited_cmd = cmd_split(cmd);
 	path = get_path(envp, splited_cmd[0]);
 	printf("%s\n", path);

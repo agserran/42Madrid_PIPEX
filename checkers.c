@@ -6,7 +6,7 @@
 /*   By: agserran <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 15:28:12 by agserran          #+#    #+#             */
-/*   Updated: 2022/12/28 16:13:13 by agserran         ###   ########.fr       */
+/*   Updated: 2023/01/17 15:57:25 by agserran         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	argv_checker(int argc)
 	}
 	if (argc < 5)
 	{
-		perror("invalid operation.");
+		perror("INVALID OPERATION.");
 		exit(0);
 	}
 }
